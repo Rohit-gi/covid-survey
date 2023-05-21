@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import {
+  Card,
+  CardBody,
   Collapse,
   Container,
   Nav,
@@ -8,10 +10,12 @@ import {
   NavbarBrand,
   NavbarToggler,
 } from "reactstrap";
+import SurveyComponent from "./survey";
+import defaultSurveyConfig from "./config/survey";
 
 export interface IApplicationProps {}
 
-const Application: React.FunctionComponent<IApplicationProps> = props => {
+const Application: React.FunctionComponent<IApplicationProps> = (props) => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
   return (
@@ -25,7 +29,20 @@ const Application: React.FunctionComponent<IApplicationProps> = props => {
           </Collapse>
         </Container>
       </Navbar>
-      <Container>Survey will go here!</Container>
+      <Container>
+        <Card className="mt-1">
+          <CardBody>
+            <SurveyComponent
+              css={defaultSurveyConfig.defaultSurveyCSS}
+              data={defaultSurveyConfig.defaultSurveyDATA}
+              json={defaultSurveyConfig.defaultSurveyJSON}
+              onComplete={(survey: any) => {
+                console.log(survey.data);
+              }}
+            />
+          </CardBody>
+        </Card>
+      </Container>
     </>
   );
 };
